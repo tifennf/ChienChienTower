@@ -17,9 +17,24 @@ struct ProgramState {
     BLEService* p_service;
     BLECharacteristic* p_characteristic;
     BLEAdvertising* p_advertising;
+    int sleep;
 };
 
 ProgramState state;
+
+class ActivationCallback : public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic* charac) {
+        const char* val = charac->getValue().c_str();
+
+        if (strcmp(val, "ON") == 0) {
+            state.sleep = 0;  // wake up tower
+            Serial.println("Device activated");
+        } else {
+            state.sleep = 1;
+            u8g2.clearDisplay();
+        }
+    }
+};
 
 void setup() {
     // put your setup code here, to run once:
@@ -37,7 +52,8 @@ void setup() {
         BLECharacteristic::PROPERTY_READ |
             BLECharacteristic::PROPERTY_WRITE);  // r/w access
 
-    p_charac->setValue("Test");
+    p_charac->setValue("OFF");
+    p_charac->setCallbacks(new ActivationCallback());
 
     p_service->start();
 
@@ -50,13 +66,25 @@ void setup() {
     state.p_service = p_service;
     state.p_characteristic = p_charac;
     state.p_advertising = p_advertising;
+    state.sleep = 1;
 }
 void loop() {
+    // waiting for activation (BLE)
+    while (state.sleep) {
+        Serial.println("Sleeping...");
+        delay(1000);
+    }
+
     u8g2.clearBuffer();
+
+    // if Serial buffer is not empty, write it on display
     if (Serial.available() > 0) {
         char msg[MESSAGE_MAX_LEN];
-        Serial.readStringUntil('\n').toCharArray(msg, MESSAGE_MAX_LEN);
-        draw_message(msg);
+
+        Serial.readStringUntil('\n').toCharArray(
+            msg, MESSAGE_MAX_LEN);  // read message from Serial
+
+        draw_message(msg);  // drawing
     }
     draw_youpi();
     u8g2.sendBuffer();
