@@ -5,12 +5,11 @@
 
 // program state
 struct ProgramState {
-    BLEState* p_ble_state;
-    int sleep;
+    bool sleep;
 };
 
-extern ProgramState*
-    p_program_state;  // exporting program state to make it available everywhere
+extern ProgramState
+    *p_program_state; // exporting program state to make it available everywhere
 
 void init_program_state();
 

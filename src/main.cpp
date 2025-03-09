@@ -1,4 +1,3 @@
-// #include <Arduino.h>
 #include "display.hpp"
 #include "program_state.hpp"
 #include <BLEDevice.h>
@@ -10,7 +9,6 @@
 #define MESSAGE_MAX_LEN 256
 
 void setup() {
-    // put your setup code here, to run once:
     Serial.begin(115200);
 
     // program state init
@@ -26,7 +24,7 @@ void loop() {
     // waiting for activation (BLE)
     if (p_program_state->sleep) {
         Serial.println("Sleeping...");
-        uint16_t app_id = p_program_state->p_ble_state->p_server->m_appId;
+        uint16_t app_id = p_server->m_appId;
 
         char buf[32];
         sprintf(buf, "App id: %d\n", app_id);

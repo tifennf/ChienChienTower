@@ -5,13 +5,9 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 
-// encapsulate all ble stuffs
-struct BLEState {
-    BLEServer* p_server;
-    BLEService* p_service;
-    BLECharacteristic* p_characteristic;
-    BLEAdvertising* p_advertising;
-};
+// exporting ptr
+extern BLEServer *p_server;
+extern BLECharacteristic *p_charac;
 
 void init_ble_server();
 
