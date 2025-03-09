@@ -1,11 +1,11 @@
 // #include <Arduino.h>
+#include "display.hpp"
+#include "program_state.hpp"
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <U8g2lib.h>
 #include <Wire.h>
-#include "display.hpp"
-#include "program_state.hpp"
 
 #define MESSAGE_MAX_LEN 256
 
@@ -24,24 +24,28 @@ void setup() {
 }
 void loop() {
     // waiting for activation (BLE)
-    while (p_program_state->sleep) {
+    if (p_program_state->sleep) {
         Serial.println("Sleeping...");
-        delay(1000);
+        uint16_t app_id = p_program_state->p_ble_state->p_server->m_appId;
+
+        char buf[32];
+        sprintf(buf, "App id: %d\n", app_id);
+        Serial.println(buf);
+    } else {
+        u8g2.clearBuffer();
+
+        // if Serial buffer is not empty, write it on display
+        if (Serial.available() > 0) {
+            char msg[MESSAGE_MAX_LEN];
+
+            Serial.readStringUntil('\n').toCharArray(
+                msg, MESSAGE_MAX_LEN); // read message from Serial
+
+            draw_message(msg); // drawing
+        }
+        draw_youpi();
+        u8g2.sendBuffer();
     }
-
-    u8g2.clearBuffer();
-
-    // if Serial buffer is not empty, write it on display
-    if (Serial.available() > 0) {
-        char msg[MESSAGE_MAX_LEN];
-
-        Serial.readStringUntil('\n').toCharArray(
-            msg, MESSAGE_MAX_LEN);  // read message from Serial
-
-        draw_message(msg);  // drawing
-    }
-    draw_youpi();
-    u8g2.sendBuffer();
 
     delay(1000);
 }
