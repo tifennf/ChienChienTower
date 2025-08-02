@@ -1,5 +1,5 @@
 # ChienChienTower (Tentative)
-Appareil permettant l'enregistrement et l'identification d'un chien parmis un groupe de chien en utilisant les aboiements.
+Appareil permettant l'enregistrement et l'identification d'un chien parmis un groupe de chien en utilisant les aboiements.  
 Malheureusement la tâche s'est avérée plus complexe que prévu, et n'ayant pas le temps d'y investir plus de temps, je préfère mettre ce projet de côté pour le moment.  
 
 En revanche, cela m'a permit de consolider certaines connaissances et d'apprendre de nombreuses choses :
