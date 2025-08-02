@@ -15,6 +15,9 @@ En revanche, cela m'a permit de consolider certaines connaissances et d'apprendr
 
 Je remercie tout particulièrement M. Franck Wajsburt pour son initiation à la soudure et la carte ESP32 qu'il m'a donné.
 
+Papier intéressant portant sur le décodage des aboiements de chien, une piste intéressante pour lorsque je reprendrai ce projet :
+https://arxiv.org/html/2404.18739v1#S4
+
 # Spécifications
 - L'appareil doit être assez petit et consommer peu d'énergies
 - Pouvoir identifier le chien fautif
@@ -22,5 +25,6 @@ Je remercie tout particulièrement M. Franck Wajsburt pour son initiation à la 
 - Statistiques portant sur le nombre d'aboiements de chaque chien sur une période donnée
 - Bouton ON/OFF
 - Pas de batteries
+
 
 
