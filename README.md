@@ -8,7 +8,6 @@ En revanche, cela m'a permit de consolider certaines connaissances et d'apprendr
 - l'utilisation du bluetooth pour contrôler un appareil (BLE)
 - une meilleure compréhension de Makefile
 - les fondements de l'électronique analogique
-- rédiger des spécifications et mieux planifier un projet
 - un peu de traitement du signal (segmentation, embedding, convolution, FFT)
 - tests unitaires avec Unity
 - quelques bases de RTOS (ZephyrOS, FreeRTOS)
